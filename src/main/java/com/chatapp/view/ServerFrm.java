@@ -36,7 +36,7 @@ public class ServerFrm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnTop.setText("TOP");
+        btnTop.setText("STOP");
         btnTop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTopActionPerformed(evt);

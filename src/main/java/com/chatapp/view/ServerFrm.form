@@ -55,7 +55,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnTop">
       <Properties>
-        <Property name="text" type="java.lang.String" value="TOP"/>
+        <Property name="text" type="java.lang.String" value="STOP"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTopActionPerformed"/>

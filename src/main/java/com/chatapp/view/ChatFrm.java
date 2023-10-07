@@ -164,6 +164,7 @@ public class ChatFrm extends javax.swing.JFrame {
         chatWindow.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         chatWindow.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
         chatWindow.setForeground(new java.awt.Color(91, 90, 90));
+        chatWindow.setEnabled(false);
         jScrollPane2.setViewportView(chatWindow);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);

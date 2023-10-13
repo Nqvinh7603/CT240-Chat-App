@@ -5,13 +5,17 @@
 package com.chatapp.view;
 
 import com.chatapp.model.Account;
+import com.chatapp.model.FileMessage;
 import com.chatapp.model.textMessage;
 import java.awt.event.KeyEvent;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -88,6 +92,7 @@ public class ChatFrm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnChangePassword = new javax.swing.JButton();
+        btnSendFile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -173,8 +178,8 @@ public class ChatFrm extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(149, 149, 149))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(227, 227, 227))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,6 +225,13 @@ public class ChatFrm extends javax.swing.JFrame {
                 .addGap(51, 51, 51))
         );
 
+        btnSendFile.setText("FILE");
+        btnSendFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendFileActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -228,11 +240,13 @@ public class ChatFrm extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtChat, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtChat))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSendFile)
+                        .addGap(8, 8, 8)
                         .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7))
                     .addGroup(layout.createSequentialGroup()
@@ -254,7 +268,8 @@ public class ChatFrm extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtChat, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSendFile))
                 .addContainerGap(34, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -331,6 +346,59 @@ public class ChatFrm extends javax.swing.JFrame {
         jframe.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnChangePasswordActionPerformed
+
+    private void btnSendFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendFileActionPerformed
+        // TODO add your handling code here:
+         Thread sendFileThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Hiển thị hộp thoại cho người dùng chọn file để gửi
+                JFileChooser fileChooser = new JFileChooser();
+                int rVal = fileChooser.showOpenDialog(null);
+                if (rVal == JFileChooser.APPROVE_OPTION) {
+                    byte[] selectedFile = new byte[(int) fileChooser.getSelectedFile().length()];
+                    BufferedInputStream bis;
+                    try {
+                        bis = new BufferedInputStream(new FileInputStream(fileChooser.getSelectedFile()));
+                        // Đọc file vào biến selectedFile
+                        bis.read(selectedFile, 0, selectedFile.length);
+
+                        String messageSent = "File" + ","
+                                + labelUserName.getText() + "," + (String) cbOnlineUsers.getSelectedItem() + ","
+                                + fileChooser.getSelectedFile().getName() + "," + String.valueOf(selectedFile.length);                              try {Thread.sleep(5000);} catch (InterruptedException ex) {}
+                        
+                        output.writeUTF(messageSent);
+
+                        int size = selectedFile.length;
+                        int bufferSize = 2048;
+                        int offset = 0;
+
+                        // Lần lượt gửi cho server từng buffer cho đến khi hết file
+                        while (size > 0) {
+                            output.write(selectedFile, offset, Math.min(size, bufferSize));
+                            offset += Math.min(size, bufferSize);
+                            size -= bufferSize;
+                        }
+
+                        output.flush();
+
+                        bis.close();
+
+                        // In ra màn hình file
+                        FileMessage fm = new FileMessage(fileChooser.getSelectedFile().getName(), selectedFile,
+                                labelUserName.getText(), (String) cbOnlineUsers.getSelectedItem(), true);
+                        fm.printMessage(labelUserName.getText(), chatWindow);
+                        autoScroll();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+
+        });
+        sendFileThread.start();
+
+    }//GEN-LAST:event_btnSendFileActionPerformed
     class Receiver implements Runnable {
 
         private DataInputStream input;
@@ -456,6 +524,7 @@ public class ChatFrm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;
     private javax.swing.JButton btnSend;
+    private javax.swing.JButton btnSendFile;
     private javax.swing.JComboBox<String> cbOnlineUsers;
     private javax.swing.JTextPane chatWindow;
     private javax.swing.JLabel jLabel1;

@@ -30,11 +30,11 @@ import javax.swing.text.StyledDocument;
  *
  * @author Admin
  */
-public class fileMessage extends Message{
+public class FileMessage extends Message{
     String filename;
     byte[] file;
 
-    public fileMessage(String filename, byte[] file, String sender, String receiver, boolean yourMessage) {
+    public FileMessage(String filename, byte[] file, String sender, String receiver, boolean yourMessage) {
         super(sender, receiver, yourMessage);
         this.filename = filename;
         this.file = file;

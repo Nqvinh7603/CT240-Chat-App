@@ -16,11 +16,11 @@ import javax.swing.text.StyledDocument;
  *
  * @author Admin
  */
-public class textMessage extends Message{
+public class TextMessage extends Message{
     
     String message;
 
-    public textMessage(String message, String sender, String receiver, boolean yourMessage) {
+    public TextMessage(String message, String sender, String receiver, boolean yourMessage) {
         super(sender, receiver, yourMessage);
         this.message = message;
     }

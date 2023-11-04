@@ -6,7 +6,9 @@ package com.chatapp.view;
 
 import com.chatapp.model.Account;
 import com.chatapp.model.FileMessage;
-import com.chatapp.model.textMessage;
+import com.chatapp.model.TextMessage;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,25 +17,25 @@ import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Admin
  */
 public class ChatFrm extends javax.swing.JFrame {
+
     private Account account = new Account();
     private DataInputStream input;
     private DataOutputStream output;
     Thread receiverThread;
     // Tạo HashMap với khóa là tên người nhận tin nhắn và values là nội dung chat của người dùng hiện tại với khóa(người dùng dc chat chung)
     protected HashMap<String, String> messageContent = new HashMap<String, String>();
-    /**
-     * Creates new form ChatFrm
-     */
+
     public ChatFrm(Account users, DataInputStream dis, DataOutputStream dos) {
-        //Tạo luồng cho người vừa đăng nhập
-         initComponents();
+        initComponents();
         labelUserName.setText(users.getUserName());
         account.setUserName(users.getUserName());
         account = users;
@@ -42,17 +44,32 @@ public class ChatFrm extends javax.swing.JFrame {
         //Tạo luồng cho người vừa đăng nhập
         receiverThread = new Thread(new ChatFrm.Receiver(dis));
         receiverThread.start();
-        //panelAccount.setVisible(false);
+        panelAccount.setVisible(false);
+        loadavatar();
+        setIconImage();
+        scaleImage();
     }
+
     private void autoScroll() {
         jScrollPane2.getVerticalScrollBar().setValue(jScrollPane2.getVerticalScrollBar().getMaximum());
+    }
+
+    public void setAvatar(String avatar) {
+        account.setAvatar(avatar);
+        loadavatar();
+    }
+
+    private void loadavatar() {
+        lblAvatar.setText("");
+        lblAvatar.setIcon(new javax.swing.ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/" + account.getAvatar())).getScaledInstance(80, 80, Image.SCALE_SMOOTH)));
     }
 
     public void setPassword(String pass) {
         account.setPassword(pass);
     }
+
     public void newMessage(String sender, String receiveString, String message, Boolean yourMessage) {
-        textMessage tm = new textMessage(message, sender, receiveString, yourMessage);
+        TextMessage tm = new TextMessage(message, sender, receiveString, yourMessage);
 
         if (yourMessage == false && cbOnlineUsers.getSelectedItem().equals(sender) == false) {
             String tmp = messageContent.get(sender);
@@ -71,6 +88,7 @@ public class ChatFrm extends javax.swing.JFrame {
             messageContent.replace((String) cbOnlineUsers.getSelectedItem(), chatWindow.getText());
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,8 +109,13 @@ public class ChatFrm extends javax.swing.JFrame {
         chatWindow = new javax.swing.JTextPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        panelAccount = new javax.swing.JPanel();
         btnChangePassword = new javax.swing.JButton();
+        btnChangeAvatar = new javax.swing.JButton();
+        btnLogOut = new javax.swing.JButton();
         btnSendFile = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        lblAvatar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -178,8 +201,8 @@ public class ChatFrm extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(227, 227, 227))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(82, 82, 82))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,6 +215,14 @@ public class ChatFrm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setText("CHAT APP");
 
+        panelAccount.setBackground(new java.awt.Color(222, 222, 222));
+        panelAccount.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelAccount.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                panelAccountComponentMoved(evt);
+            }
+        });
+
         btnChangePassword.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
         btnChangePassword.setForeground(new java.awt.Color(51, 51, 51));
         btnChangePassword.setText("Change Password");
@@ -202,18 +233,61 @@ public class ChatFrm extends javax.swing.JFrame {
             }
         });
 
+        btnChangeAvatar.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
+        btnChangeAvatar.setForeground(new java.awt.Color(51, 51, 51));
+        btnChangeAvatar.setText("Change Avatar");
+        btnChangeAvatar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnChangeAvatar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeAvatarActionPerformed(evt);
+            }
+        });
+
+        btnLogOut.setBackground(new java.awt.Color(30, 30, 30));
+        btnLogOut.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
+        btnLogOut.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogOut.setText("Log out");
+        btnLogOut.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelAccountLayout = new javax.swing.GroupLayout(panelAccount);
+        panelAccount.setLayout(panelAccountLayout);
+        panelAccountLayout.setHorizontalGroup(
+            panelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAccountLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(panelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnLogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnChangeAvatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnChangePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+        panelAccountLayout.setVerticalGroup(
+            panelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAccountLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnChangeAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addComponent(jLabel1)
-                .addContainerGap(48, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(btnChangePassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,8 +295,8 @@ public class ChatFrm extends javax.swing.JFrame {
                 .addGap(52, 52, 52)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                .addComponent(panelAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
         );
 
         btnSendFile.setText("FILE");
@@ -232,38 +306,55 @@ public class ChatFrm extends javax.swing.JFrame {
             }
         });
 
+        lblAvatar.setText("avatar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtChat))
+                        .addComponent(txtChat, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSendFile)
                         .addGap(8, 8, 8)
                         .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(labelUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(43, 43, 43))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(lblAvatar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(labelUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(27, 27, 27))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblAvatar)
+                            .addComponent(jLabel2))
+                        .addGap(30, 30, 30)))
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -285,7 +376,7 @@ public class ChatFrm extends javax.swing.JFrame {
                     public void run() {
                         try {
                             String messageSent = "Text" + "," + labelUserName.getText() + ","
-                            + (String) cbOnlineUsers.getSelectedItem() + "," + txtChat.getText();
+                                    + (String) cbOnlineUsers.getSelectedItem() + "," + txtChat.getText();
 
                             output.writeUTF(messageSent);
                             output.flush();
@@ -311,7 +402,7 @@ public class ChatFrm extends javax.swing.JFrame {
                 public void run() {
                     try {
                         String messageSent = "Text" + "," + labelUserName.getText() + ","
-                        + (String) cbOnlineUsers.getSelectedItem() + "," + txtChat.getText();
+                                + (String) cbOnlineUsers.getSelectedItem() + "," + txtChat.getText();
                         output.writeUTF(messageSent);
                         output.flush();
                     } catch (IOException e1) {
@@ -341,15 +432,9 @@ public class ChatFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtChatActionPerformed
 
-    private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
-        ChangePasswordFrm jframe = new ChangePasswordFrm(this, account, input, output);
-        jframe.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnChangePasswordActionPerformed
-
     private void btnSendFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendFileActionPerformed
         // TODO add your handling code here:
-         Thread sendFileThread = new Thread(new Runnable() {
+        Thread sendFileThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 // Hiển thị hộp thoại cho người dùng chọn file để gửi
@@ -365,8 +450,12 @@ public class ChatFrm extends javax.swing.JFrame {
 
                         String messageSent = "File" + ","
                                 + labelUserName.getText() + "," + (String) cbOnlineUsers.getSelectedItem() + ","
-                                + fileChooser.getSelectedFile().getName() + "," + String.valueOf(selectedFile.length);                              try {Thread.sleep(5000);} catch (InterruptedException ex) {}
-                        
+                                + fileChooser.getSelectedFile().getName() + "," + String.valueOf(selectedFile.length);
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException ex) {
+                        }
+
                         output.writeUTF(messageSent);
 
                         int size = selectedFile.length;
@@ -399,6 +488,53 @@ public class ChatFrm extends javax.swing.JFrame {
         sendFileThread.start();
 
     }//GEN-LAST:event_btnSendFileActionPerformed
+
+    private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
+        ChangePasswordFrm jframe = new ChangePasswordFrm(this, account, input, output);
+        jframe.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnChangePasswordActionPerformed
+
+    private void btnChangeAvatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeAvatarActionPerformed
+
+        ChangeAvatarFrm jframe = new ChangeAvatarFrm(this, account, input, output);
+        jframe.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnChangeAvatarActionPerformed
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        int tmp = JOptionPane.showConfirmDialog(chatWindow, "Are you sure Log out?");
+        if (tmp == 0) {
+
+            try {
+                output.writeUTF("Log out");
+
+                LoginFrm jframe;
+                jframe = new LoginFrm();
+                jframe.setVisible(true);
+                setVisible(false);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_btnLogOutActionPerformed
+
+    private void panelAccountComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelAccountComponentMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_panelAccountComponentMoved
+
+    private void setIconImage() {
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/tchat_title_white.png")));
+
+    }
+
+    private void scaleImage() {
+        ImageIcon thongtinKhachHang_icon = new ImageIcon(getClass().getResource("/Image/tchat_logo6.png"));
+        Image thongtinKH_img = thongtinKhachHang_icon.getImage();
+        // Image thongtinKHImgScale = thongtinKH_img.getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_SMOOTH);
+        //ImageIcon thongtinKHScaledIcon = new ImageIcon(thongtinKHImgScale);
+        }
+
     class Receiver implements Runnable {
 
         private DataInputStream input;
@@ -438,8 +574,6 @@ public class ChatFrm extends javax.swing.JFrame {
                             file.write(buffer, 0, Math.min(bufferSize, size));
                             size -= bufferSize;
                         }
-
-                        
 
                     } else if (messageReceived[0].equals("Online users")) {
                         // Nhận yêu cầu cập nhật danh sách người dùng trực tuyến
@@ -522,18 +656,23 @@ public class ChatFrm extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChangeAvatar;
     private javax.swing.JButton btnChangePassword;
+    private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnSend;
     private javax.swing.JButton btnSendFile;
     private javax.swing.JComboBox<String> cbOnlineUsers;
     private javax.swing.JTextPane chatWindow;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelChatWith;
     private javax.swing.JLabel labelUserName;
+    private javax.swing.JLabel lblAvatar;
+    private javax.swing.JPanel panelAccount;
     private javax.swing.JTextField txtChat;
     // End of variables declaration//GEN-END:variables
 }

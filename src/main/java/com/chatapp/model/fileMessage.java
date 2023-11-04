@@ -30,7 +30,7 @@ import javax.swing.text.StyledDocument;
  *
  * @author Admin
  */
-public class FileMessage extends Message{
+public class FileMessage extends Message {
     String filename;
     byte[] file;
 

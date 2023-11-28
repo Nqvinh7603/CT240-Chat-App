@@ -24,43 +24,30 @@
 
 ## 🖥️Giao diện người dùng
 
-- **Máy chủ**
-  ![Máy chủ](image-1.png)
+####Máy chủ
+![Máy chủ](image-1.png)
 
----
+####Đăng nhập
+![Đăng nhập](image-2.png)
 
-- **Đăng nhập**
-  ![Đăng nhập](image-2.png)
+####Giao diện chính
+![Giao diện chính](image-6.png)
 
----
+####Đổi mật khẩu
+![Đổi mật khẩu](image-7.png)
 
-- **Giao diện chính**
-  ![Giao diện chính](image-6.png)
+####Đổi ảnh đại diện
+![đổi ảnh đại diện](image-8.png)
 
----
+####Chọn người dùng để chat
+![chọn người dùng](image-9.png)
 
-- **Đổi mật khẩu**
-  ![Đổi mật khẩu](image-7.png)
+####Gửi file
+![Gửi file](image-10.png)
 
----
+### **DEMO**
 
-- **Đổi ảnh đại diện**
-  ![đổi ảnh đại diện](image-8.png)
-
----
-
-- **Chọn người dùng để chat**
-  ![chọn người dùng](image-9.png)
-
----
-
-- **Gửi file**
-  ![Gửi file](image-10.png)
-
----
-
-- **DEMO**
-  ![Test](image-11.png)
+![Test](image-11.png)
 
 ##🔧Cài đặt dự án
 

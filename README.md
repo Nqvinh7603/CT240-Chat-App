@@ -6,12 +6,12 @@
 
 ## 👍Chức năng cơ bản
 
-###Phía Server:
+### Phía Server:
 
 - **Chạy máy chủ**: Xử lý các yêu cầu từ người dùng như đăng nhập, đổi ảnh đại diện, nhắn tin...
 - **Dừng máy chủ**: Tạm ngừng hoạt động của máy chủ để bảo trì, sửa chữa hoặc nâng cấp phần mềm
 
-###Phía Client:
+### Phía Client:
 
 - **Đăng ký**: Người dùng có thể tạo tài khoản khi sử dụng ứng dụng
 - **Đăng nhập**: Người dùng có tài khoản để đăng nhập sử dụng các chức năng của ứng dụng
@@ -28,6 +28,7 @@
   ![Alt text](image-1.png)
   Nút RUN: KHởi động máy chủ
   Nút STOP: Kết thúc máy chủ
+
 - **Đăng nhập**
   ![Alt text](image-2.png)
 

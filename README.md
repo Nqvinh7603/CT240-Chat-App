@@ -29,37 +29,40 @@
 
 ---
 
-- **Đăng nhập**![Alt text](image-2.png)
+- **Đăng nhập**
+  ![Đăng nhập](image-2.png)
 
 ---
 
-- **Giao diện chính**![Alt text](image-6.png)
+- **Giao diện chính**
+  ![Giao diện chính](image-6.png)
 
 ---
 
 - **Đổi mật khẩu**
-  ![Alt text](image-7.png)
+  ![Đổi mật khẩu](image-7.png)
 
 ---
 
 - **Đổi ảnh đại diện**
-  ![Alt text](image-8.png)
+  ![đổi ảnh đại diện](image-8.png)
 
 ---
 
 - **Chọn người dùng để chat**
-  ![Alt text](image-9.png)
+  ![chọn người dùng](image-9.png)
 
 ---
 
 - **Gửi file**
-  ![Alt text](image-10.png)
+  ![Gửi file](image-10.png)
 
 ---
 
 - **DEMO**
-  ![Alt text](image-11.png)
-  ##🔧Cài đặt dự án
+  ![Test](image-11.png)
+
+##🔧Cài đặt dự án
 
 **Maven**
 

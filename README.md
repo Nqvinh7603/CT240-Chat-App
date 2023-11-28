@@ -25,17 +25,15 @@
 ## 🖥️Giao diện người dùng
 
 - **Máy chủ**
-  ![Alt text](image-1.png)
-  Nút RUN: KHởi động máy chủ
-  Nút STOP: Kết thúc máy chủ
-
-- **Đăng nhập**
-  ![Alt text](image-2.png)
+  ![Máy chủ](image-1.png)
 
 ---
 
-- **Giao diện chính**
-  ![Alt text](image-6.png)
+- **Đăng nhập**![Alt text](image-2.png)
+
+---
+
+- **Giao diện chính**![Alt text](image-6.png)
 
 ---
 

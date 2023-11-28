@@ -26,35 +26,35 @@
 
 #### Máy chủ
 
-![Máy chủ](image-1.png)
+![Máy chủ](/images/image-1.png)
 
 #### Đăng nhập
 
-![Đăng nhập](image-2.png)
+![Đăng nhập](/images/image-2.png)
 
 #### Giao diện chính
 
-![Giao diện chính](image-6.png)
+![Giao diện chính](/images/image-6.png)
 
 #### Đổi mật khẩu
 
-![Đổi mật khẩu](image-7.png)
+![Đổi mật khẩu](/images/image-7.png)
 
 #### Đổi ảnh đại diện
 
-![đổi ảnh đại diện](image-8.png)
+![đổi ảnh đại diện](/images/image-8.png)
 
 #### Chọn người dùng để chat
 
-![chọn người dùng](image-9.png)
+![chọn người dùng](/images/image-9.png)
 
 #### Gửi file
 
-![Gửi file](image-10.png)
+![Gửi file](/images/image-10.png)
 
 ### DEMO
 
-![Test](image-11.png)
+![Test](/images/image-11.png)
 
 ## 🔧Cài đặt dự án
 
@@ -64,7 +64,7 @@
 2. IDE: đề xuất Netbeans (mới nhất)
 3. Cài đặt JDK 20 và apache maven (>= 3.x)
 4. Cài đặt MySql workbench và tạo cơ sở dữ liệu có tên là **chatapp**
-5. Click chọn tool có sẵn trên netbeans để clean và build dự án: ![Alt text](image.png)
+5. Click chọn tool có sẵn trên netbeans để clean và build dự án: ![Alt text](/images/image.png)
 
 ## 📺Công nghệ sử dụng
 

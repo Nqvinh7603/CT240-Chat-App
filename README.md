@@ -1,10 +1,11 @@
 # CT240-CHAT-APP
 
-##🤔Mục đích
+## 🤔Mục đích
 
 Ứng dụng Chat App nhằm cung cấp môi trường trò chuyện và trao đổi thông tin giữa người dùng đang online. Người dùng cần tài khoản và đăng nhập để sử dụng ứng dụng
 
-##👍Chức năng cơ bản
+## 👍Chức năng cơ bản
+
 ###Phía Server:
 
 - **Chạy máy chủ**: Xử lý các yêu cầu từ người dùng như đăng nhập, đổi ảnh đại diện, nhắn tin...
@@ -21,7 +22,7 @@
 - **Đổi ảnh đại diện**: Thay đổi ảnh đại diện theo sở thích cá nhân
 - **Gửi file**: Gửi file cho người dùng khác
 
-##🖥️Giao diện người dùng
+## 🖥️Giao diện người dùng
 
 - **Máy chủ**
   ![Alt text](image-1.png)

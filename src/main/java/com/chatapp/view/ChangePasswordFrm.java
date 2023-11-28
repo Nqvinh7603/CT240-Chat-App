@@ -66,8 +66,9 @@ public class ChangePasswordFrm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 153));
         jPanel1.setLayout(null);
 
         labelChangePass.setFont(new java.awt.Font("Bahnschrift", 0, 36)); // NOI18N
@@ -127,7 +128,7 @@ public class ChangePasswordFrm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnBack);
-        btnBack.setBounds(270, 300, 130, 39);
+        btnBack.setBounds(290, 270, 90, 39);
 
         btnChange.setBackground(new java.awt.Color(30, 30, 30));
         btnChange.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
@@ -141,7 +142,7 @@ public class ChangePasswordFrm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnChange);
-        btnChange.setBounds(430, 300, 130, 39);
+        btnChange.setBounds(410, 270, 100, 39);
 
         labelNotification.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
         labelNotification.setForeground(new java.awt.Color(204, 0, 0));
@@ -160,17 +161,17 @@ public class ChangePasswordFrm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         pack();

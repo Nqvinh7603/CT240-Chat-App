@@ -128,7 +128,7 @@ public class ChangePasswordFrm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnBack);
-        btnBack.setBounds(290, 270, 90, 39);
+        btnBack.setBounds(140, 300, 90, 39);
 
         btnChange.setBackground(new java.awt.Color(30, 30, 30));
         btnChange.setFont(new java.awt.Font("Bahnschrift", 1, 18)); // NOI18N
@@ -142,7 +142,7 @@ public class ChangePasswordFrm extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnChange);
-        btnChange.setBounds(410, 270, 100, 39);
+        btnChange.setBounds(300, 300, 100, 39);
 
         labelNotification.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
         labelNotification.setForeground(new java.awt.Color(204, 0, 0));
@@ -169,9 +169,8 @@ public class ChangePasswordFrm extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         pack();

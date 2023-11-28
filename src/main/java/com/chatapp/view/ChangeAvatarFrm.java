@@ -38,7 +38,7 @@ public class ChangeAvatarFrm extends javax.swing.JFrame {
         this.account = account;
         input = dis;
         output = dos;
-        labelAvatar.setIcon(new javax.swing.ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/" + account.getAvatar())).getScaledInstance(237, 237, Image.SCALE_SMOOTH)));
+        labelAvatar.setIcon(new javax.swing.ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/com/chatapp/image" + account.getAvatar())).getScaledInstance(237, 237, Image.SCALE_SMOOTH)));
         setIconImage();
     }
 
@@ -162,11 +162,11 @@ public class ChangeAvatarFrm extends javax.swing.JFrame {
     private void btnChooseAvatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseAvatarActionPerformed
         String link = System.getProperty("user.dir");
         System.out.println(link);
-        final JFileChooser fileDialog = new JFileChooser(link + "\\src\\Image\\");
+        final JFileChooser fileDialog = new JFileChooser(link + "\\src\\comm\\chatapp\\image\\");
             int returnVal = fileDialog.showOpenDialog(this);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 java.io.File file = fileDialog.getSelectedFile();
-                labelAvatar.setIcon(new javax.swing.ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/" + file.getName()))));
+                labelAvatar.setIcon(new javax.swing.ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/com/chatapp/image/" + file.getName()))));
                 account.setAvatar(file.getName());
             }
     }//GEN-LAST:event_btnChooseAvatarActionPerformed

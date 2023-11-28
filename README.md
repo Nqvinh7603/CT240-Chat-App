@@ -24,28 +24,35 @@
 
 ## 🖥️Giao diện người dùng
 
-####Máy chủ
+#### Máy chủ
+
 ![Máy chủ](image-1.png)
 
-####Đăng nhập
+#### Đăng nhập
+
 ![Đăng nhập](image-2.png)
 
-####Giao diện chính
+#### Giao diện chính
+
 ![Giao diện chính](image-6.png)
 
-####Đổi mật khẩu
+#### Đổi mật khẩu
+
 ![Đổi mật khẩu](image-7.png)
 
-####Đổi ảnh đại diện
+#### Đổi ảnh đại diện
+
 ![đổi ảnh đại diện](image-8.png)
 
-####Chọn người dùng để chat
+#### Chọn người dùng để chat
+
 ![chọn người dùng](image-9.png)
 
-####Gửi file
+#### Gửi file
+
 ![Gửi file](image-10.png)
 
-### **DEMO**
+### DEMO
 
 ![Test](image-11.png)
 

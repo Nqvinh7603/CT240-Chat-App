@@ -56,7 +56,7 @@
 
 ![Test](image-11.png)
 
-##🔧Cài đặt dự án
+## 🔧Cài đặt dự án
 
 **Maven**
 
@@ -66,7 +66,7 @@
 4. Cài đặt MySql workbench và tạo cơ sở dữ liệu có tên là **chatapp**
 5. Click chọn tool có sẵn trên netbeans để clean và build dự án: ![Alt text](image.png)
 
-##📺Công nghệ sử dụng
+## 📺Công nghệ sử dụng
 
 - **Frontend**
   Java swing

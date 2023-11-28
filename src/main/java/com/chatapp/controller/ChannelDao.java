@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Admin
  */
-public class ChannelDao {
+public class ChannelDAO {
     public int getIDChannel(String username, String sender) throws Exception {
         String sql = "select id from channel where (sender=? and title=?) or (sender=? and title=?)";
         int idChannel = -1;

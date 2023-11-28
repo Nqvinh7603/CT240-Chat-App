@@ -13,7 +13,7 @@ import java.sql.ResultSet;
  *
  * @author Admin
  */
-public class AccountDao {
+public class AccountDAO {
      public Account findAccountDAO(String username) throws Exception {
         String sql = "select * from account where username=?";
         try (

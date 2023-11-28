@@ -16,7 +16,7 @@ import javax.sql.rowset.serial.SerialBlob;
  *
  * @author Admin
  */
-public class MessageDao {
+public class MessageDAO {
     public int getIDNewMessage() throws Exception {
         String sql = "select count(id) from MESSAGE";
         try (

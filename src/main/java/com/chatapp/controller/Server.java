@@ -4,7 +4,7 @@
  */
 package com.chatapp.controller;
 
-import com.chatapp.helper.AccountDao;
+import com.chatapp.helper.AccountDAO;
 import com.chatapp.model.Account;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -26,7 +26,7 @@ public class Server  {
     private Socket socket;
     static ArrayList<Handler> clients = new ArrayList<Handler>();
     Account account;
-    AccountDao accDAO;
+    AccountDAO accDAO;
 
     public Server() throws IOException {
         try {
@@ -137,7 +137,7 @@ public class Server  {
     }
 
     private String saveAccount(Account account) {
-        accDAO = new AccountDao();
+        accDAO = new AccountDAO();
         try {
             if (accDAO.saveAccountDAO(account)) {
                 return "Successful account registration";
@@ -149,7 +149,7 @@ public class Server  {
     }
 
     public String updateAccount(Account account) {
-        accDAO = new AccountDao();
+        accDAO = new AccountDAO();
         try {
             if (accDAO.updateAccountDAO(account)) {
                 return "Update successful";
@@ -161,7 +161,7 @@ public class Server  {
     }
 
     public boolean isExisted(String username) throws Exception {
-        accDAO = new AccountDao();
+        accDAO = new AccountDAO();
         account = accDAO.findAccountDAO(username);
         if (account != null) {
             return true;
@@ -170,7 +170,7 @@ public class Server  {
     }
 
     private Account getAccount(String username) {
-        accDAO = new AccountDao();
+        accDAO = new AccountDAO();
         try {
             account = accDAO.findAccountDAO(username);
         } catch (Exception ex) {

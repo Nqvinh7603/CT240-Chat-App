@@ -11,8 +11,8 @@ import java.sql.DriverManager;
  *
  * @author Admin
  */
-public class dbHelper {
-    public static Connection openConnection() throws Exception{
+public class connectMySQL {
+    public static Connection getConnection() throws Exception{
         Class.forName("com.mysql.jdbc.Driver");  
         String connectionUrl = "jdbc:mysql://localhost/chatapp";
         String username = "root";

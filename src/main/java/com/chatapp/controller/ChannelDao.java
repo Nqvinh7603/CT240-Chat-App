@@ -4,7 +4,8 @@
  */
 package com.chatapp.controller;
 
-import com.chatapp.helper.dbHelper;
+import com.chatapp.helper.connectMySQL;
+
 import com.chatapp.model.Channel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class ChannelDAO {
         String sql = "select id from channel where (sender=? and title=?) or (sender=? and title=?)";
         int idChannel = -1;
         try (
-                 Connection con = dbHelper.openConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
+                 Connection con = connectMySQL.getConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
             psmt.setString(1, username);
             psmt.setString(2, sender);
             psmt.setString(4, username);
@@ -36,7 +37,7 @@ public class ChannelDAO {
 
         if (idChannel == -1) {
             sql = "select count(id) from Channel";
-            try ( Connection con = dbHelper.openConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
+            try ( Connection con = connectMySQL.getConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
                 ResultSet rsid = psmt.executeQuery();
                 rsid = psmt.executeQuery();
                 if (rsid.next()) {
@@ -54,7 +55,7 @@ public class ChannelDAO {
     public boolean insertChannel(Channel cn) throws Exception {
         String sql = "INSERT INTO Channel VALUES(?,?,?,?,?)";
         try (
-                 Connection con = dbHelper.openConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
+                 Connection con = connectMySQL.getConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
             psmt.setInt(1, cn.getId());
             psmt.setString(2, cn.getTitle());
             psmt.setString(3, cn.getLastTime());
@@ -69,7 +70,7 @@ public class ChannelDAO {
         String sql = "select * from message where idChannel = " + idChannel + " order by time";
         int typeMess = -1;
         try (
-                 Connection con = dbHelper.openConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
+                 Connection con = connectMySQL.getConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
             ResultSet rs = psmt.executeQuery();
 
             while (rs.next()) {
@@ -106,7 +107,7 @@ public class ChannelDAO {
     public void displayImgMessage(int idChannel, DefaultTableModel tblModel, String username) throws Exception {
         String sql = "select * from message where idChannel = " + idChannel + " order by time";
         try (
-                 Connection con = dbHelper.openConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
+                 Connection con = connectMySQL.getConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
             ResultSet rs = psmt.executeQuery();
 
             while (rs.next()) {

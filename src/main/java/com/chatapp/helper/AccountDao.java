@@ -17,7 +17,7 @@ public class AccountDAO {
      public Account findAccountDAO(String username) throws Exception {
         String sql = "select * from account where username=?";
         try (
-                 Connection con = dbHelper.openConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
+                 Connection con = connectMySQL.getConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
             psmt.setString(1, username);
 
             ResultSet rs = psmt.executeQuery();
@@ -32,7 +32,7 @@ public class AccountDAO {
     public boolean saveAccountDAO(Account acc) throws Exception {
         String sql = "insert into account values(?,?,?)";
         try (
-                 Connection con = dbHelper.openConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
+                 Connection con = connectMySQL.getConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
             psmt.setString(1, acc.getUserName());
             psmt.setString(2, acc.getPassword());
             psmt.setString(3, acc.getAvatar());
@@ -47,7 +47,7 @@ public class AccountDAO {
     public boolean updateAccountDAO(Account acc) throws Exception {
         String sql = "update account set password=?, avatar=? where username=?";
         try (
-                 Connection con = dbHelper.openConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
+                 Connection con = connectMySQL.getConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
             psmt.setString(1, acc.getPassword());
             psmt.setString(2, acc.getAvatar());
             psmt.setString(3, acc.getUserName());

@@ -4,7 +4,8 @@
  */
 package com.chatapp.controller;
 
-import com.chatapp.helper.dbHelper;
+import com.chatapp.helper.connectMySQL;
+
 import com.chatapp.model.MessageServer;
 import java.sql.Blob;
 import java.sql.Connection;
@@ -20,7 +21,7 @@ public class MessageDAO {
     public int getIDNewMessage() throws Exception {
         String sql = "select count(id) from MESSAGE";
         try (
-                 Connection con = dbHelper.openConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
+                 Connection con = connectMySQL.getConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
             int idN = 0;
             ResultSet rsid = psmt.executeQuery();
             rsid = psmt.executeQuery();
@@ -36,7 +37,7 @@ public class MessageDAO {
     public boolean insertTextMessage(MessageServer tm) throws Exception {
         String sql = "INSERT INTO MESSAGE VALUES(?,?,?,?,?,?)";
         try (
-                 Connection con = dbHelper.openConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
+                 Connection con = connectMySQL.getConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
             psmt.setInt(1, tm.getId());
             psmt.setString(2, (String) tm.getContent());
             psmt.setString(3, tm.getTime());
@@ -51,7 +52,7 @@ public class MessageDAO {
     public boolean insertImgMessage(MessageServer tm) throws Exception {
         String sql = "INSERT INTO MESSAGE VALUES(?,?,?,?,?,?)";
         try (
-                 Connection con = dbHelper.openConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
+                 Connection con = connectMySQL.getConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
             psmt.setInt(1, tm.getId());
 
             if (tm.getContent() != null) {
@@ -74,7 +75,7 @@ public class MessageDAO {
     public boolean updateLastChannelTime(MessageServer tm) throws Exception {
         String sql = "UPDATE channel set lastTime=? where id=?";
         try (
-                 Connection con = dbHelper.openConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
+                 Connection con = connectMySQL.getConnection();  PreparedStatement psmt = con.prepareStatement(sql);) {
             psmt.setString(1, tm.getTime());
             psmt.setInt(2, tm.getIdChannel());
 
